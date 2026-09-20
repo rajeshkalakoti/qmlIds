@@ -1,0 +1,4 @@
+dataset:
+  # Relative to this config file.
+  path: ../data/ciciomt.csv.bz2
+  compression: bz2
