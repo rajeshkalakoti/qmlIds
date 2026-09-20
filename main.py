@@ -1,9 +1,11 @@
-"""Read the CICIoMT dataset using the YAML configuration."""
+"""Load CICIoMT and run the configured statistical classification models."""
 
 from pathlib import Path
 
 import pandas as pd
 import yaml
+
+from src.machineLearning.statistical import run_statistical_models
 
 
 def main() -> pd.DataFrame:
@@ -13,8 +15,10 @@ def main() -> pd.DataFrame:
 
     dataset_config = config["dataset"]
     dataset_path = (config_path.parent / dataset_config["path"]).resolve()
-    return pd.read_csv(dataset_path, compression=dataset_config["compression"])
+    print(f"Loading dataset: {dataset_path}", flush=True)
+    dataset = pd.read_csv(dataset_path, compression=dataset_config["compression"])
+    return run_statistical_models(dataset, config)
 
 
 if __name__ == "__main__":
-    dataset = main()
+    results = main()
